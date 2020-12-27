@@ -17,6 +17,7 @@ import { StationDetailsComponent } from './bottomsheets/station-details/station-
 import { StationFilterComponent } from './bottomsheets/station-filter/station-filter.component';
 import {FormsModule, ReactiveFormsModule} from "@angular/forms";
 import { StationListComponent } from './bottomsheets/station-list/station-list.component';
+import { ServiceWorkerModule } from '@angular/service-worker';
 
 @NgModule({
   declarations: [
@@ -38,6 +39,7 @@ import { StationListComponent } from './bottomsheets/station-list/station-list.c
     AngularFirestoreModule,
     FormsModule,
     ReactiveFormsModule,
+    ServiceWorkerModule.register('ngsw-worker.js', { enabled: environment.production }),
   ],
   providers: [
     {
