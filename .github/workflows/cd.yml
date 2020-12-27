@@ -23,12 +23,12 @@ jobs:
       - run: 'echo "$NG_ENV" > src/environments/environment.ts'
         shell: bash
         env:
-          SSH_KEY: ${{secrets.NG_ENV}}
+          NG_ENV: ${{secrets.NG_ENV}}
 
       - run: 'echo "$NG_ENV" > src/environments/environment.prod.ts'
         shell: bash
         env:
-          SSH_KEY: ${{secrets.NG_ENV}}
+          NG_ENV: ${{secrets.NG_ENV}}
 
       - run: npm run build:prod
 
