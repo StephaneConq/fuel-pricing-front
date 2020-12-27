@@ -1,0 +1,47 @@
+<div class="main">
+
+  <header>
+    <div>
+      <button mat-icon-button (click)="reset()">
+        <mat-icon>delete</mat-icon>
+      </button>
+    </div>
+    <div>
+      <h2>Filtres</h2>
+    </div>
+    <div>
+      <button mat-icon-button (click)="bottomSheetRef.dismiss()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </header>
+
+  <div class="filter-form">
+
+    <mat-form-field>
+      <mat-label>Types de carburant</mat-label>
+      <mat-select multiple [(ngModel)]="filterService.filters.fuels">
+        <mat-option *ngFor="let f of filterService.possibleFuels" [value]="f">
+          {{f}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <mat-form-field>
+      <mat-label>Services</mat-label>
+      <mat-select multiple [(ngModel)]="filterService.filters.services">
+        <mat-option *ngFor="let s of filterService.possibleServices" [value]="s">
+          {{s}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+    <div>
+      <button mat-button (click)="bottomSheetRef.dismiss(true)">
+        Filtrer
+      </button>
+    </div>
+
+  </div>
+
+</div>

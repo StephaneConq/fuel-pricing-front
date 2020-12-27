@@ -1,0 +1,30 @@
+.main {
+  height: 30vh;
+  transition: height 0.25s ease-out;
+
+  &.expanded {
+    height: 80vh;
+    transition: height 0.25s ease-in;
+  }
+
+  header {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    div {
+      text-align: center;
+    }
+  }
+
+  .sort-options {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+
+    mat-form-field {
+      width: calc(50% - 20px);
+      margin: 0 10px;
+    }
+  }
+}

@@ -1,0 +1,21 @@
+<div *ngIf="apiLoaded | async">
+  <mat-progress-bar mode="indeterminate" *ngIf="stations.length === 0 || !center"></mat-progress-bar>
+  <google-map [options]="mapOptions"
+              [zoom]="zoom"
+              [center]="center"
+              (boundsChanged)="onBoundsChange()"
+              width="100vw" height="100vh">
+    <map-marker *ngFor="let s of displayedStations" (mapClick)="openStationDetails(s)" [options]="markerOptions" [position]="s.position"></map-marker>
+    <map-marker *ngIf="currentUserPosition && currentUserPosition.position"
+                [options]="myPositionOptions"
+                [position]="currentUserPosition.position"></map-marker>
+  </google-map>
+</div>
+
+<button mat-fab color="primary" (click)="openFilter()" class="filter-button">
+  <mat-icon>filter_alt</mat-icon>
+</button>
+
+<button mat-fab color="primary" (click)="openList()" class="list-button">
+  <mat-icon>list</mat-icon>
+</button>

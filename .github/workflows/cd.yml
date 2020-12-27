@@ -18,6 +18,10 @@ jobs:
 
       - run: npm install
 
+      - run: echo ${{ secrets.NG_ENV }} > src/environments/environment.ts
+
+      - run: echo ${{ secrets.NG_ENV }} > src/environments/environment.prod.ts
+
       - run: npm run build:prod
 
       - name: Initialize Google Cloud SDK

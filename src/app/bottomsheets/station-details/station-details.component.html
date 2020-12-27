@@ -1,0 +1,43 @@
+<div class="main">
+  <header>
+    <div>
+      <button *ngIf="selectedStation" mat-icon-button (click)="previous()">
+        <mat-icon>keyboard_arrow_left</mat-icon>
+      </button>
+    </div>
+    <div>
+      <h3>{{data.adresse}}</h3>
+      <h4>{{data.cp}}, {{data.ville}}</h4>
+    </div>
+    <div>
+      <button mat-icon-button (click)="bottomSheetRef.dismiss()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+  </header>
+
+  <div class="prices">
+    <h3><b>Prix</b></h3>
+
+    <p *ngFor="let price of data.prix">
+      <b>{{price.nom}}:</b><span> {{price.valeur}}€</span>
+    </p>
+  </div>
+
+  <div class="services" *ngIf="data.services.length > 0">
+    <h3><b>Services</b></h3>
+
+    <p>
+      {{getServices()}}
+    </p>
+  </div>
+
+  <div class="hours" *ngIf="displayHours()">
+    <h3><b>Horaires</b></h3>
+
+    <p *ngIf="!data.horaires">Ouvert 24h/24h</p>
+    <p *ngFor="let h of data.horaires">
+      <b>{{h.jour}}:</b><span>{{ h.ferme ? 'Fermé' : h.ouverture + ' / ' + h.fermeture }}</span>
+    </p>
+  </div>
+</div>

@@ -1,0 +1,61 @@
+<div class="main" [ngClass]="{'expanded': expanded}" *ngIf="!selectedStation">
+
+  <header>
+
+    <div>
+      <button mat-icon-button (click)="expanded = !expanded">
+        <mat-icon>{{expanded ? 'keyboard_arrow_down' : 'keyboard_arrow_up'}}</mat-icon>
+      </button>
+    </div>
+    <div>
+      <h2>Liste des stations</h2>
+    </div>
+    <div>
+      <button mat-icon-button (click)="bottomSheetRef.dismiss()">
+        <mat-icon>close</mat-icon>
+      </button>
+    </div>
+
+  </header>
+
+  <div class="sort-options">
+
+    <mat-form-field>
+      <mat-label>Trier par</mat-label>
+      <mat-select [(ngModel)]="sortOption" (ngModelChange)="sortData()">
+        <mat-option *ngFor="let s of ['Prix', 'Distance']" [value]="s">
+          {{s}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+
+
+    <mat-form-field *ngIf="sortOption === 'Prix'">
+      <mat-label>Types de carburant</mat-label>
+      <mat-select [(ngModel)]="selectedFuel" (ngModelChange)="sortData()">
+        <mat-option [value]="null">
+          Aucun
+        </mat-option>
+        <mat-option *ngFor="let f of possibleFuels" [value]="f">
+          {{f}}
+        </mat-option>
+      </mat-select>
+    </mat-form-field>
+  </div>
+
+  <mat-list>
+    <mat-list-item *ngFor="let s of data" (click)="openStationDetails(s)">
+      <mat-icon mat-list-icon>local_gas_station</mat-icon>
+      <div mat-line>{{s.adresse}} </div>
+      <div mat-line> {{s.cp}} {{s.ville}} </div>
+      <div *ngIf="sortOption">
+        {{getInfoToDisplay(s)}}
+      </div>
+    </mat-list-item>
+  </mat-list>
+
+</div>
+
+<app-station-details *ngIf="selectedStation"
+                     (previousEvent)="selectedStation = null; sortData()"
+                     [selectedStation]="selectedStation"></app-station-details>
