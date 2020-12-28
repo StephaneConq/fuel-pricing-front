@@ -117,6 +117,7 @@ export class MapComponent implements OnInit, AfterViewInit {
     });
     if (this.listInstance) {
       this.listInstance.instance.data = [...this.displayedStations];
+      this.listInstance.instance.sortData();
     }
   }
 
