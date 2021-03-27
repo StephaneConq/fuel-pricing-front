@@ -45,6 +45,7 @@ export class MapComponent implements OnInit, AfterViewInit {
   center = null;
   // currentUserPosition = null;
   listInstance: MatBottomSheetRef<StationListComponent> = null;
+  loading = false;
 
   constructor(httpClient: HttpClient,
               private crudService: CrudService,
@@ -82,7 +83,6 @@ export class MapComponent implements OnInit, AfterViewInit {
 
   ngAfterViewInit(): void {
     const q = new Promise(resolve => {
-
       this.firestoreService.list('stations').subscribe((stations) => {
 
         this.stations = stations.map((s) => {
@@ -96,6 +96,11 @@ export class MapComponent implements OnInit, AfterViewInit {
       });
     });
 
+    this.setCurrentPosition(q);
+  }
+
+  setCurrentPosition(q=null) {
+    this.loading = true;
     this.geolocationService.getLocation().subscribe(res => {
       this.currentUserPosition = {
         lat: res['location'].lat,
@@ -105,8 +110,11 @@ export class MapComponent implements OnInit, AfterViewInit {
         this.center = new google.maps.LatLng(this.currentUserPosition.lat, this.currentUserPosition.lng);
         this.currentUserPosition['position'] = this.center;
         this.zoom = 12;
-        await q;
+        if (q) {
+          await q;
+        }
         this.onBoundsChange();
+        this.loading = false;
       }, 500);
     });
   }
@@ -120,6 +128,8 @@ export class MapComponent implements OnInit, AfterViewInit {
       this.listInstance.instance.sortData();
     }
   }
+
+
 
   openStationDetails(s: Station) {
     this.bottomSheet.open(StationDetailsComponent, {

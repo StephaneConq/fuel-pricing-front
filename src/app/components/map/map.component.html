@@ -1,5 +1,5 @@
 <div *ngIf="apiLoaded | async">
-  <mat-progress-bar mode="indeterminate" *ngIf="stations.length === 0 || !center"></mat-progress-bar>
+  <mat-progress-bar mode="indeterminate" *ngIf="stations.length === 0 || !center || loading"></mat-progress-bar>
   <google-map [options]="mapOptions"
               [zoom]="zoom"
               [center]="center"
@@ -18,4 +18,8 @@
 
 <button mat-fab color="primary" (click)="openList()" class="list-button">
   <mat-icon>list</mat-icon>
+</button>
+
+<button color="primary" class="locate-me" mat-raised-button mat-icon-button (click)="setCurrentPosition()">
+  <mat-icon>gps_fixed</mat-icon>
 </button>
