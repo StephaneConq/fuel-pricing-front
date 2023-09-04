@@ -1,0 +1,18 @@
+<div *ngIf="apiLoaded | async" class="map-container">
+  <google-map
+    (boundsChanged)="mapChanged()"
+    width="100vw"
+    height="100vh"
+    [options]="options"
+    [center]="center"
+    [zoom]="zoom"
+    #mapInstance="googleMap"
+  >
+    <map-marker
+      *ngFor="let station of stations"
+      (mapClick)="openInfo(station)"
+      icon="assets/fuel-32x32.png"
+      [position]="{ lat: station['lat'], lng: station['lng'] }"
+    ></map-marker>
+  </google-map>
+</div>

@@ -1,0 +1,9 @@
+<div class="container">
+  <img src="assets/fuel-512x512.png" />
+
+  <section>
+    <mat-card *ngFor="let price of station.prix">
+      {{ price["@nom"] }}
+    </mat-card>
+  </section>
+</div>
